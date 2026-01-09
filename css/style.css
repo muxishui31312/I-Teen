@@ -1,0 +1,316 @@
+/* === 全局基础设置 === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 这是一个很好的习惯，防止布局撑破 */
+}
+
+html {
+    scroll-behavior: smooth; /* 关键代码：让页面滚动变得丝滑 */
+}
+
+body {
+    font-family: "Microsoft YaHei", sans-serif; /* 字体 */
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 通用容器，限制内容宽度并居中 */
+.container {
+    width: 95%;
+    max-width: 2200px;
+    margin: 0 auto;
+}
+
+/* 通用链接样式 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === 1. 导航栏样式 === */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed; /* 固定在顶部 */
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex; /* 弹性布局，让Logo和菜单并排 */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    height: 40px;
+    font-size: 1.5rem;
+    /*font-weight: bold;*/
+    /*color: #007bff; !* 蓝色Logo *!*/
+
+    display: flex;
+    gap: 10px; /* 图片和文字间距 */
+    margin-right: auto;
+}
+
+.logo img {
+    height: 40px;     /* 控制高度，最常用 */
+    width: auto;      /* 宽度按比例自动缩放 */
+    max-height: 40px;
+    /*max-width: 40px;*/
+}
+
+.logo span {
+    color: #007bff;
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+}
+
+header ul li {
+    margin-left: 20px;
+}
+
+header ul li a:hover {
+    color: #007bff; /* 鼠标悬停变色 */
+}
+
+/* === 2. 首页大图 (Hero) 样式 === */
+
+/* === 1. Hero 容器基础设置 === */
+.hero {
+    position: relative; /* 关键：作为定位基准 */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden; /* 防止图片放大时溢出屏幕 */
+}
+
+/* === 2. 内容层 (确保文字浮在图片上面) === */
+.hero-content {
+    position: relative;
+    z-index: 2; /* 层级高，压在背景上 */
+    /* 为了文字清晰，给文字背后加一点点阴影，或者给图片加遮罩 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* === 3. 背景轮播容器 === */
+.hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* 层级低，在文字下面 */
+}
+
+/* === 4. 单张幻灯片样式 === */
+.slide-item {
+    position: absolute; /* 绝对定位，让三张图叠在一起 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+
+    /* 核心动画：fadeEffect */
+    opacity: 0; /* 默认隐藏 */
+    animation: fadeEffect 25s infinite; /* 总时长15秒 */
+
+    /* 给图片叠加一层黑色半透明滤镜，让文字更清晰 */
+    filter: brightness(0.6);
+}
+
+/* === 5. 设置每一张图的延迟时间 (核心魔法) === */
+/* 第1张图：立即开始 */
+.slide-item:nth-child(1) {
+    animation-delay: 0s;
+}
+/* 第2张图：延迟5秒开始 */
+.slide-item:nth-child(2) {
+    animation-delay: 5s;
+}
+/* 第3张图：延迟10秒开始 */
+.slide-item:nth-child(3) {
+    animation-delay: 10s;
+}
+/* 第4张图：延迟15秒开始 */
+.slide-item:nth-child(4) {
+    animation-delay: 15s;
+}
+/* 第5张图：延迟20秒开始 */
+.slide-item:nth-child(5) {
+    animation-delay: 20s;
+}
+
+/* === 6. 定义淡入淡出动画 === */
+@keyframes fadeEffect {
+    0% {
+        opacity: 0;
+        transform: scale(1); /* 初始大小 */
+    }
+    10% {
+        opacity: 1; /* 1.5秒内淡入显示 */
+    }
+    33% {
+        opacity: 1; /* 保持显示状态 */
+        transform: scale(1.1); /* 稍微放大一点点，制造呼吸感 */
+    }
+    43% {
+        opacity: 0; /* 淡出隐藏 */
+    }
+    100% {
+        opacity: 0; /* 剩下的时间保持隐藏，等待下一轮 */
+    }
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* === 通用区块样式 === */
+.section-padding {
+    padding: 80px 0; /* 上下留白 */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.section-desc {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #666;
+}
+
+.bg-light {
+    background-color: #f9f9f9;
+}
+
+/* === 4. 团队风采卡片样式 (重点) === */
+.team-grid {
+    display: grid;
+    /* 列数3：最小250px宽，一行能放几个放几个 */
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    gap: 30px; /* 卡片间距 */
+}
+
+.member-card {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s; /* 动画过渡 */
+}
+
+.member-card:hover {
+    transform: translateY(-10px); /* 鼠标悬停时上浮 */
+}
+
+.member-card img {
+    width: 100%;          /* 关键：宽度撑满卡片内容区域 */
+    height: 200px;        /* 建议：固定高度，保证所有卡片一样高（你可以根据需要改成 250px 或 auto） */
+    object-fit: cover;    /* 关键：保持图片比例，自动裁剪多余部分，防止变形 */
+    border-radius: 5px;   /* 改为微圆角矩形，不再是圆形 (50%) */
+    margin-bottom: 15px;
+    border: 2px solid #007bff; /* 边框稍微调细一点点，看起来更精致 */
+    /*!*max-width: 255px;*!*/
+    /*!*max-height: 255px;*!*/
+    /*!*border-radius: 50%; !* 圆形头像 *!*!*/
+    /*object-fit: cover;*/
+    /*margin-bottom: 15px;*/
+    /*border: 3px solid #007bff;*/
+}
+
+.member-card h3 {
+    margin-bottom: 5px;
+}
+
+.member-card .role {
+    display: block;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.member-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* === 导师风采区域样式 === */
+#professor {
+    text-align: center; /* 核心代码：让容器里所有的文字和图片都水平居中 */
+    background-color: #fff; /* 给个白色背景 */
+}
+
+/* 为了让导师照片更好看，建议加上限制大小和圆角 */
+#professor img {
+    width: 200px;        /* 设置宽度，防止图片太大 */
+    height: 200px;       /* 设置高度，保持正方形 */
+    object-fit: cover;   /* 保证图片不被拉伸变形 */
+    border-radius: 50%;  /* 50% 变圆形头像，如果想要圆角矩形改成 10px */
+    border: 4px solid #007bff; /* 加个蓝色边框装饰 */
+    margin-bottom: 20px; /* 图片和名字之间留点空隙 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* 加一点阴影更有质感 */
+}
+
+/* 名字样式 */
+#professor h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* 职称样式 */
+#professor .role {
+    display: block;      /* 让span独占一行，防止和名字挤在一起 */
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* 描述文字样式 */
+#professor p {
+    color: #555;
+    line-height: 1.8;    /* 行高稍微大点，阅读更舒服 */
+    max-width: 600px;    /* 限制文字宽度，防止在大屏幕上拖太长不好看 */
+    margin: 0 auto;      /* 让限制了宽度的文字块本身也居中 */
+}
+
+/* === 5. 页脚样式 === */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
