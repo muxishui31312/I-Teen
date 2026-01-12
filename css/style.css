@@ -19,7 +19,7 @@ body {
 .container {
     width: 95%;
     max-width: 2200px;
-    margin: 0 auto;
+    margin: 25px auto;
 }
 
 /* 通用链接样式 */
